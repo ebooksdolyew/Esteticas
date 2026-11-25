@@ -45,6 +45,20 @@ Documento único com as decisões de interface e experiência do site. Os estilo
 - Durações: `--dur-fast` (.22s) para estados, `--dur` (.45s) para painéis e .8–1.2s para entradas.
 - Com `prefers-reduced-motion: reduce`, animações e transições são desligadas e o conteúdo aparece direto.
 
+## Efeitos de rolagem entre seções
+
+O `main.js` mede cada seção marcada com `data-scroll` e entrega três variáveis CSS de 0 a 1: `--enter` (a seção chegando), `--progress` (a travessia pela tela) e `--exit` (saindo pelo topo). Os efeitos ficam todos na seção 14b do CSS e usam `translate`, `scale` e `rotate` individuais para não conflitar com as animações de entrada.
+
+| Seção | Efeito | Por quê |
+|---|---|---|
+| Abertura | Ao sair, o texto sobe e esmaece mais rápido que o retrato; o halo de argila desce devagar | Profundidade e passagem suave para o conteúdo |
+| Tratamentos | O título desliza lateralmente e os itens entram em sequência | Sensação de folhear um índice |
+| Método | A curva do topo chega funda e se acomoda; as linhas das etapas são traçadas em ordem 1 → 2 → 3, com a folha marcando cada início | O processo literalmente se desenha |
+| Sobre | A foto se revela de dentro para fora, como um véu, e o texto acompanha em ritmo mais lento | Momento de pausa e cuidado |
+| Agendamento | Curva do topo se acomoda, a forma de fundo gira devagar e a foto flutua | Dá vida sem tirar o foco do formulário |
+
+Com `prefers-reduced-motion` os efeitos não são ativados, e na impressão são anulados. Para aplicar a uma nova seção, adicione `data-scroll` e use as variáveis no CSS sob `.has-scroll-fx`.
+
 ## Acessibilidade
 
 - Link "Pular para o conteúdo", landmarks e `aria-label` nas navegações.

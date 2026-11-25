@@ -15,6 +15,7 @@
    12. Rodapé
    13. Barra fixa no celular
    14. Movimento
+   14b. Efeitos de rolagem entre seções
    15. Responsivo
    16. Preferências do sistema e impressão
    ========================================================================== */
@@ -964,6 +965,93 @@ button { background: none; border: 0; padding: 0; cursor: pointer; text-align: l
 .js .reveal.is-in { opacity: 1; transform: none; }
 
 
+/* 14b. Efeitos de rolagem entre seções -----------------------------------
+   Ativos só com .has-scroll-fx (JS ligado e sem redução de movimento).
+   As variáveis --enter, --progress e --exit vão de 0 a 1 e vêm do main.js.
+   Usam as propriedades individuais translate/scale/rotate para não brigar
+   com as animações de entrada, que usam transform. */
+
+/* Abertura: ao sair, o texto sobe e esmaece mais rápido que o retrato,
+   criando profundidade; o halo de argila desce devagar. */
+.has-scroll-fx .hero-copy {
+  translate: 0 calc(var(--exit, 0) * -56px);
+  opacity: calc(1 - var(--exit, 0) * .85);
+}
+.has-scroll-fx .hero-media { translate: 0 calc(var(--exit, 0) * 48px); }
+.has-scroll-fx .hero-mark { rotate: calc(var(--exit, 0) * 50deg); }
+.has-scroll-fx .hero::before { translate: 0 calc(var(--exit, 0) * 140px); }
+
+/* Tratamentos: o título desliza como quem abre um índice. */
+.has-scroll-fx .treatments .section-title {
+  translate: calc((1 - var(--enter, 1)) * -7vw) 0;
+}
+
+/* Seções com topo orgânico (Método e Agendamento): a curva chega mais
+   funda e se acomoda conforme a seção assume a tela, como uma onda. */
+.has-scroll-fx .method {
+  --curve: calc(1 - var(--enter, 1));
+  border-radius:
+    calc(7% + var(--curve) * 22%) calc(12% + var(--curve) * 22%) 0 0 /
+    calc(6% + var(--curve) * 10%) calc(9% + var(--curve) * 10%) 0 0;
+}
+.has-scroll-fx .contact {
+  --curve: calc(1 - var(--enter, 1));
+  border-radius:
+    calc(9% + var(--curve) * 22%) calc(6% + var(--curve) * 22%) 0 0 /
+    calc(7% + var(--curve) * 10%) calc(5% + var(--curve) * 10%) 0 0;
+}
+
+/* Método: o processo se desenha. A linha de cada etapa é traçada em
+   sequência e a folha marca o início de cada uma. */
+.step { --i-off: calc(var(--i, 0) * .28); }
+.step::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--c-accent);
+  transform-origin: left;
+  scale: 0 1;
+  pointer-events: none;
+}
+.has-scroll-fx .method .step::after {
+  scale: clamp(0, (var(--enter, 1) - var(--i-off)) * 2.4, 1) 1;
+}
+.has-scroll-fx .method .step::before {
+  scale: clamp(0, (var(--enter, 1) - var(--i-off)) * 6, 1);
+}
+.has-scroll-fx .method .step-num {
+  translate: 0 calc((1 - var(--enter, 1)) * (36px + var(--i, 0) * 24px));
+}
+.js:not(.has-scroll-fx) .step::after { scale: 1 1; }
+
+/* Sobre: a foto é revelada de dentro para fora, como um véu que se abre,
+   e o texto acompanha em ritmo mais lento. */
+.has-scroll-fx .about-media { background: transparent; }
+.has-scroll-fx .about-media img {
+  clip-path: inset(
+    calc((1 - var(--enter, 1)) * 16%) calc((1 - var(--enter, 1)) * 12%)
+    round calc(24px + (1 - var(--enter, 1)) * 120px)
+  );
+  scale: calc(1.14 - var(--enter, 1) * .14);
+}
+.has-scroll-fx .about-text {
+  translate: 0 calc((.5 - var(--progress, .5)) * 70px);
+}
+
+/* Agendamento: a forma de fundo gira devagar e a foto flutua,
+   dando vida à seção sem tirar o foco do formulário. */
+.has-scroll-fx .contact::before {
+  rotate: calc(var(--progress, .5) * 16deg - 8deg);
+  translate: 0 calc((.5 - var(--progress, .5)) * 60px);
+}
+.has-scroll-fx .contact-media {
+  translate: 0 calc((.5 - var(--progress, .5)) * 44px);
+}
+
+
 /* 15. Responsivo --------------------------------------------------------- */
 
 @media (max-width: 1024px) {
@@ -1019,6 +1107,9 @@ button { background: none; border: 0; padding: 0; cursor: pointer; text-align: l
   .treatments .is-open .index-title { translate: none; }
 
   .steps { grid-template-columns: minmax(0, 1fr); }
+  .step { --i-off: calc(var(--i, 0) * .12); }
+  .has-scroll-fx .treatments .section-title { translate: calc((1 - var(--enter, 1)) * -12vw) 0; }
+  .has-scroll-fx .about-text { translate: none; }
   .step-num { margin-bottom: 12px; }
   .about-grid { grid-template-columns: minmax(0, 1fr); }
   .about-media { aspect-ratio: 1.33; }
@@ -1117,5 +1208,7 @@ button { background: none; border: 0; padding: 0; cursor: pointer; text-align: l
   .js .index-panel { grid-template-rows: 1fr; visibility: visible; }
   .js .index-panel-inner > *, .js .reveal { opacity: 1; transform: none; }
   .index-icon, .panel-cta { display: none; }
+  .has-scroll-fx * { translate: none !important; scale: none !important; clip-path: none !important; opacity: 1 !important; }
+  .step::after { scale: 1 1 !important; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; }
 }

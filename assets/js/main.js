@@ -9,7 +9,8 @@
    6. Acordeões (teclado, links profundos, atalhos do hero)
    7. Revelação suave ao rolar (com escalonamento)
    8. Barra fixa de agendamento no celular
-   9. Formulário → WhatsApp (máscara, validação, pré-seleção)
+   9. Efeitos de rolagem entre seções (variáveis --enter/--progress/--exit)
+  10. Formulário → WhatsApp (máscara, validação, pré-seleção)
    ========================================================================== */
 (function () {
   'use strict';
@@ -208,7 +209,46 @@
     updateDock();
   }
 
-  /* 9. Formulário → WhatsApp ----------------------------------------------- */
+  /* 9. Efeitos de rolagem entre seções -------------------------------------
+     Cada [data-scroll] recebe três variáveis CSS, de 0 a 1:
+       --enter    a seção chegando (topo no pé da tela → topo a 35% da altura)
+       --progress a travessia completa da seção pela tela
+       --exit     a seção saindo pelo topo
+     O CSS decide o que fazer com elas (seção 14b do style.css). */
+  var scrollFx = $$('[data-scroll]');
+  if (scrollFx.length && !reduceMotion.matches) {
+    root.classList.add('has-scroll-fx');
+    var clamp01 = function (n) { return n < 0 ? 0 : n > 1 ? 1 : n; };
+    var active = scrollFx.slice();
+
+    var measure = function (el) {
+      var vh = window.innerHeight;
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--enter', clamp01((vh - r.top) / (vh * .65)).toFixed(4));
+      el.style.setProperty('--progress', clamp01((vh - r.top) / (vh + r.height)).toFixed(4));
+      el.style.setProperty('--exit', clamp01(-r.top / r.height).toFixed(4));
+    };
+    var updateFx = rafThrottle(function () { active.forEach(measure); });
+
+    scrollFx.forEach(measure);
+    if (hasIO) {
+      // Só recalcula as seções próximas da tela
+      active = [];
+      var fxObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var i = active.indexOf(entry.target);
+          if (entry.isIntersecting && i < 0) active.push(entry.target);
+          if (!entry.isIntersecting && i > -1) { active.splice(i, 1); measure(entry.target); }
+        });
+        updateFx();
+      }, { rootMargin: '15% 0px' });
+      scrollFx.forEach(function (el) { fxObserver.observe(el); });
+    }
+    window.addEventListener('scroll', updateFx, { passive: true });
+    window.addEventListener('resize', updateFx);
+  }
+
+  /* 10. Formulário → WhatsApp ---------------------------------------------- */
   var form = $('form[data-whatsapp]');
   if (!form) return;
 
