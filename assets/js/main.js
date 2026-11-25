@@ -1,6 +1,5 @@
 /* Atelier Derme — interações
    - menu móvel
-   - header com borda ao rolar
    - acordeão do índice (tratamentos e dúvidas)
    - revelação suave ao rolar
    - formulário → WhatsApp
@@ -14,14 +13,6 @@
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = new Date().getFullYear();
   });
-
-  /* Header */
-  var header = document.querySelector('.site-header');
-  var onScroll = function () {
-    header.classList.toggle('is-scrolled', window.scrollY > 8);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
 
   /* Menu móvel */
   var toggle = document.querySelector('.nav-toggle');
@@ -38,7 +29,10 @@
     if (e.target.closest('a')) setMenu(false);
   });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') setMenu(false);
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      toggle.focus();
+    }
   });
 
   /* Acordeão — um item aberto por vez dentro de cada [data-accordion] */
@@ -80,10 +74,7 @@
         }
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-    reveals.forEach(function (el, i) {
-      el.style.transitionDelay = (el.closest('.hero') ? i * 80 : 0) + 'ms';
-      io.observe(el);
-    });
+    reveals.forEach(function (el) { io.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add('is-in'); });
   }
@@ -92,16 +83,19 @@
   var form = document.querySelector('form[data-whatsapp]');
   if (form) {
     var note = form.querySelector('.form-note');
+    form.querySelector('button[type="submit"]').disabled = false;
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var valid = true;
+      var firstInvalid;
       form.querySelectorAll('[required]').forEach(function (input) {
         var ok = input.value.trim() !== '';
         input.closest('.field').classList.toggle('has-error', !ok);
-        if (!ok) valid = false;
+        input.setAttribute('aria-invalid', String(!ok));
+        if (!ok && !firstInvalid) firstInvalid = input;
       });
-      if (!valid) {
+      if (firstInvalid) {
         note.textContent = 'Preencha nome e telefone.';
+        firstInvalid.focus();
         return;
       }
       var d = new FormData(form);

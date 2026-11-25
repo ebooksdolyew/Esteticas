@@ -5,70 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Atelier Derme — Estética facial</title>
   <meta name="description" content="Limpeza de pele, peeling, microagulhamento, tratamento de cicatrizes de acne e melasma. Protocolos individualizados a partir de avaliação.">
-  <meta name="theme-color" content="#F7F7F8">
+  <meta name="theme-color" content="#F8F6F0">
   <link rel="stylesheet" href="assets/css/style.css">
-  <script>document.documentElement.classList.add("js")</script>
 </head>
-<body>
-
-  <!-- Linhas da grade (decorativas). Remova esta div para esconder. -->
-  <div class="grid-lines" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<body id="topo">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
   <!-- ============ HEADER ============ -->
-  <header class="site-header" id="topo">
+  <header class="site-header">
     <div class="container header-inner">
       <a href="#topo" class="brand" aria-label="Atelier Derme — início">
         <span class="brand-mark" aria-hidden="true"></span>
         <span class="brand-name">Atelier Derme</span>
       </a>
 
-      <nav class="nav" id="nav" aria-label="Principal">
-        <a href="#tratamentos">Tratamentos</a>
-        <a href="#metodo">Método</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#duvidas">Dúvidas</a>
-        <a href="#agendar" class="nav-cta">Agendar avaliação</a>
-      </nav>
-
-      <button class="nav-toggle" aria-controls="nav" aria-expanded="false" aria-label="Abrir menu">
+      <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false" aria-label="Abrir menu">
         <span></span><span></span>
       </button>
+
+      <nav class="nav" id="nav" aria-label="Principal">
+        <div class="nav-links">
+          <a href="#tratamentos">Tratamentos</a>
+          <a href="#metodo">Método</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#duvidas">Dúvidas</a>
+        </div>
+        <a href="#agendar" class="nav-cta">
+          Agendar avaliação <span class="arrow" aria-hidden="true"></span>
+        </a>
+      </nav>
     </div>
   </header>
 
-  <main>
+  <main id="conteudo">
 
     <!-- ============ HERO ============ -->
-    <section class="hero">
+    <section class="hero" aria-labelledby="hero-title">
       <div class="container">
-        <div class="hero-meta reveal">
-          <span class="label">Estética facial</span>
-          <span class="label">Atendimento com hora marcada</span>
-        </div>
-
-        <h1 class="hero-title reveal">
-          Pele tratada<br>
-          com <em>método</em>.
-        </h1>
-
-        <div class="hero-foot">
-          <p class="hero-lead reveal">
-            Protocolos individualizados para textura, manchas e cicatrizes —
-            definidos a partir de uma avaliação detalhada da sua pele, não de um pacote pronto.
-          </p>
-          <div class="hero-actions reveal">
-            <a href="#agendar" class="btn btn-primary">Agendar avaliação</a>
-            <a href="#tratamentos" class="btn btn-link">Ver tratamentos</a>
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <p class="eyebrow">Estética facial</p>
+            <h1 class="hero-title" id="hero-title">Pele tratada <em>com método.</em></h1>
+            <p class="hero-lead">
+              Tratamentos personalizados para textura, manchas e cicatrizes.
+              Cada plano começa com uma avaliação da sua pele.
+            </p>
+            <div class="hero-actions">
+              <a href="#agendar" class="btn btn-primary">
+                Agendar avaliação <span class="arrow" aria-hidden="true"></span>
+              </a>
+              <a href="#tratamentos" class="btn btn-link">
+                Ver tratamentos <span class="arrow arrow-down" aria-hidden="true"></span>
+              </a>
+            </div>
           </div>
+
+          <figure class="hero-media">
+            <img src="assets/img/pele-natural.webp"
+                 srcset="assets/img/pele-natural-760.webp 760w, assets/img/pele-natural.webp 1400w"
+                 sizes="(max-width: 760px) 90vw, (max-width: 1440px) 46vw, 660px"
+                 width="1400" height="1120" fetchpriority="high"
+                 alt="Retrato de uma mulher com a pele iluminada pela luz natural.">
+            <span class="hero-mark" aria-hidden="true"></span>
+          </figure>
         </div>
 
-        <ol class="hero-index reveal" aria-label="Tratamentos">
-          <li><a href="#t-01"><span class="num">01</span>Limpeza de pele</a></li>
-          <li><a href="#t-02"><span class="num">02</span>Peeling</a></li>
-          <li><a href="#t-03"><span class="num">03</span>Microagulhamento</a></li>
-          <li><a href="#t-04"><span class="num">04</span>Cicatrizes de acne</a></li>
-          <li><a href="#t-05"><span class="num">05</span>Melasma</a></li>
-        </ol>
+        <nav class="hero-treatments" aria-label="Atalhos para tratamentos">
+          <ul class="hero-index" role="list">
+            <li><a href="#t-01">Limpeza de pele <span class="arrow arrow-down" aria-hidden="true"></span></a></li>
+            <li><a href="#t-02">Peeling <span class="arrow arrow-down" aria-hidden="true"></span></a></li>
+            <li><a href="#t-03">Microagulhamento <span class="arrow arrow-down" aria-hidden="true"></span></a></li>
+            <li><a href="#t-04">Cicatrizes de acne <span class="arrow arrow-down" aria-hidden="true"></span></a></li>
+            <li><a href="#t-05">Melasma <span class="arrow arrow-down" aria-hidden="true"></span></a></li>
+          </ul>
+        </nav>
       </div>
     </section>
 
@@ -76,7 +86,6 @@
     <section class="section treatments" id="tratamentos">
       <div class="container">
         <header class="section-head">
-          <span class="section-num">A</span>
           <h2 class="section-title reveal">Tratamentos</h2>
           <p class="section-intro reveal">
             Cinco frentes de cuidado. Cada uma pode ser feita isoladamente
@@ -89,7 +98,6 @@
           <!-- Item 01 -->
           <article class="index-item" id="t-01">
             <button class="index-row" aria-expanded="false" aria-controls="p-01">
-              <span class="index-num">01</span>
               <span class="index-title">Limpeza de pele</span>
               <span class="index-summary">Remoção de cravos, impurezas e excesso de oleosidade.</span>
               <span class="index-icon" aria-hidden="true"></span>
@@ -109,7 +117,6 @@
           <!-- Item 02 -->
           <article class="index-item" id="t-02">
             <button class="index-row" aria-expanded="false" aria-controls="p-02">
-              <span class="index-num">02</span>
               <span class="index-title">Peeling</span>
               <span class="index-summary">Renovação controlada das camadas superficiais da pele.</span>
               <span class="index-icon" aria-hidden="true"></span>
@@ -129,7 +136,6 @@
           <!-- Item 03 -->
           <article class="index-item" id="t-03">
             <button class="index-row" aria-expanded="false" aria-controls="p-03">
-              <span class="index-num">03</span>
               <span class="index-title">Microagulhamento</span>
               <span class="index-summary">Estímulo de colágeno por microperfurações controladas.</span>
               <span class="index-icon" aria-hidden="true"></span>
@@ -149,7 +155,6 @@
           <!-- Item 04 -->
           <article class="index-item" id="t-04">
             <button class="index-row" aria-expanded="false" aria-controls="p-04">
-              <span class="index-num">04</span>
               <span class="index-title">Cicatrizes de acne</span>
               <span class="index-summary">Protocolos combinados para nivelar relevo e textura.</span>
               <span class="index-icon" aria-hidden="true"></span>
@@ -169,7 +174,6 @@
           <!-- Item 05 -->
           <article class="index-item" id="t-05">
             <button class="index-row" aria-expanded="false" aria-controls="p-05">
-              <span class="index-num">05</span>
               <span class="index-title">Melasma</span>
               <span class="index-summary">Controle contínuo das manchas, com foco em estabilidade.</span>
               <span class="index-icon" aria-hidden="true"></span>
@@ -194,26 +198,25 @@
     <section class="section method" id="metodo">
       <div class="container">
         <header class="section-head">
-          <span class="section-num">B</span>
           <h2 class="section-title reveal">Método</h2>
           <p class="section-intro reveal">
             Resultado consistente vem de diagnóstico, sequência e acompanhamento.
           </p>
         </header>
 
-        <ol class="steps">
+        <ol class="steps" role="list">
           <li class="step reveal">
-            <span class="step-num">1</span>
+            <span class="step-num" aria-hidden="true">1</span>
             <h3>Avaliação</h3>
             <p>Análise do tipo de pele, fototipo, histórico e rotina. É aqui que entendemos o que tratar e em que ordem.</p>
           </li>
           <li class="step reveal">
-            <span class="step-num">2</span>
+            <span class="step-num" aria-hidden="true">2</span>
             <h3>Protocolo</h3>
             <p>Um plano escrito, com técnicas, número estimado de sessões, intervalos e cuidados em casa.</p>
           </li>
           <li class="step reveal">
-            <span class="step-num">3</span>
+            <span class="step-num" aria-hidden="true">3</span>
             <h3>Acompanhamento</h3>
             <p>Revisão a cada etapa, com ajustes conforme a resposta da pele.</p>
           </li>
@@ -224,27 +227,16 @@
     <!-- ============ SOBRE ============ -->
     <section class="section about" id="sobre">
       <div class="container about-grid">
-        <header class="section-head about-head">
-          <span class="section-num">C</span>
-          <h2 class="section-title reveal">Sobre</h2>
-        </header>
-
-        <!-- Troque o conteúdo de .media por <img src="assets/img/sua-foto.jpg" alt="Descrição"> -->
-        <figure class="media reveal" aria-hidden="true"></figure>
-
-        <div class="about-text">
-          <p class="about-lead reveal">
+        <figure class="about-media reveal">
+          <img src="assets/img/cuidado-facial.webp" width="1080" height="810" loading="lazy" decoding="async"
+               alt="Sessão de cuidado facial com um disco de algodão.">
+        </figure>
+        <div class="about-text reveal">
+          <h2 class="section-title">Sobre o<br>Atelier Derme</h2>
+          <p class="about-lead">
             Um espaço dedicado exclusivamente à pele do rosto, com atendimento
             individual e tempo para cada etapa.
           </p>
-          <p class="reveal">
-            Substitua este parágrafo pela apresentação da profissional responsável:
-            formação, especializações e a forma de trabalhar.
-          </p>
-          <dl class="about-facts reveal">
-            <div><dt>Responsável técnica</dt><dd>Nome da profissional</dd></div>
-            <div><dt>Registro</dt><dd>Conselho — 00000</dd></div>
-          </dl>
         </div>
       </div>
     </section>
@@ -253,7 +245,6 @@
     <section class="section faq" id="duvidas">
       <div class="container">
         <header class="section-head">
-          <span class="section-num">D</span>
           <h2 class="section-title reveal">Dúvidas</h2>
         </header>
 
@@ -299,49 +290,62 @@
     </section>
 
     <!-- ============ AGENDAR ============ -->
-    <section class="section contact" id="agendar">
-      <div class="container contact-grid">
-        <header class="contact-head">
-          <span class="section-num">E</span>
-          <h2 class="contact-title reveal">Agende sua<br>avaliação.</h2>
-          <dl class="contact-info reveal">
-            <div><dt>WhatsApp</dt><dd><a href="https://wa.me/5500000000000">(00) 00000-0000</a></dd></div>
-            <div><dt>E-mail</dt><dd><a href="mailto:contato@exemplo.com">contato@exemplo.com</a></dd></div>
-            <div><dt>Endereço</dt><dd>Rua Exemplo, 000 — Sala 00<br>Cidade, UF</dd></div>
-            <div><dt>Horário</dt><dd>Segunda a sexta, 9h às 19h<br>Sábado, 9h às 13h</dd></div>
-          </dl>
-        </header>
+    <section class="section contact" id="agendar" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact-grid">
+          <header class="contact-head">
+            <p class="eyebrow">Atendimento com hora marcada</p>
+            <h2 class="contact-title" id="contact-title">Agende sua <em>avaliação.</em></h2>
+            <p class="contact-lead">
+              Preencha seus dados e continue no WhatsApp para combinar um horário.
+            </p>
+          </header>
 
-        <!-- O formulário monta uma mensagem e abre o WhatsApp. Troque o número em data-whatsapp. -->
-        <form class="form reveal" data-whatsapp="5500000000000" novalidate>
-          <div class="field">
-            <label for="nome">Nome</label>
-            <input id="nome" name="nome" type="text" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="telefone">Telefone</label>
-            <input id="telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" required>
-          </div>
-          <div class="field field-full">
-            <label for="interesse">Tratamento de interesse</label>
-            <select id="interesse" name="interesse">
-              <option value="">Ainda não sei</option>
-              <option>Limpeza de pele</option>
-              <option>Peeling</option>
-              <option>Microagulhamento</option>
-              <option>Cicatrizes de acne</option>
-              <option>Melasma</option>
-            </select>
-          </div>
-          <div class="field field-full">
-            <label for="mensagem">Mensagem <span class="optional">opcional</span></label>
-            <textarea id="mensagem" name="mensagem" rows="3"></textarea>
-          </div>
-          <div class="form-foot field-full">
-            <button type="submit" class="btn btn-primary">Enviar pelo WhatsApp</button>
-            <p class="form-note" role="status" aria-live="polite"></p>
-          </div>
-        </form>
+          <!-- O formulário abre o WhatsApp com uma mensagem. Configure o número em data-whatsapp. -->
+          <form class="form" data-whatsapp="5500000000000" aria-label="Agendamento pelo WhatsApp" novalidate>
+            <div class="field">
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="telefone">Telefone</label>
+              <input id="telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel"
+                     placeholder="(00) 00000-0000" required>
+            </div>
+            <div class="field field-full">
+              <label for="interesse">Tratamento de interesse</label>
+              <select id="interesse" name="interesse">
+                <option value="">Ainda não sei</option>
+                <option>Limpeza de pele</option>
+                <option>Peeling</option>
+                <option>Microagulhamento</option>
+                <option>Cicatrizes de acne</option>
+                <option>Melasma</option>
+              </select>
+            </div>
+            <div class="field field-full">
+              <label for="mensagem">Mensagem <span class="optional">(opcional)</span></label>
+              <textarea id="mensagem" name="mensagem" rows="3"></textarea>
+            </div>
+            <div class="form-foot field-full">
+              <button type="submit" class="btn btn-primary" disabled>
+                Continuar no WhatsApp <span class="arrow" aria-hidden="true"></span>
+              </button>
+              <p class="form-note" role="status"></p>
+              <noscript><p class="form-note">Use o link de WhatsApp abaixo para agendar.</p></noscript>
+            </div>
+          </form>
+
+          <img class="contact-media" src="assets/img/itens-de-estetica.webp" width="1080" height="540"
+               loading="lazy" decoding="async" alt="">
+        </div>
+
+        <dl class="contact-info">
+          <div><dt>WhatsApp</dt><dd><a href="https://wa.me/5500000000000">(00) 00000-0000</a></dd></div>
+          <div><dt>E-mail</dt><dd><a href="mailto:contato@exemplo.com">contato@exemplo.com</a></dd></div>
+          <div><dt>Endereço</dt><dd>Rua Exemplo, 000 — Sala 00<br>Cidade, UF</dd></div>
+          <div><dt>Horário</dt><dd>Segunda a sexta, 9h às 19h<br>Sábado, 9h às 13h</dd></div>
+        </dl>
       </div>
     </section>
 
